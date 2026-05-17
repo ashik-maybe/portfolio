@@ -15,9 +15,9 @@ const linkedinUrl = "https://www.linkedin.com/in/ashik-md/";
         <meta name="generator" content={Astro.generator} />
         <title>{name} // Profile</title>
         <style is:global>
-            /* Persona 5 Halftone Dot Background Pattern */
+            /* Halftone Dot Background Pattern with Green */
             .p5-bg {
-                background-color: #e60012;
+                background-color: #009639;
                 background-image:
                     radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%),
                     radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%);
@@ -42,23 +42,27 @@ const linkedinUrl = "https://www.linkedin.com/in/ashik-md/";
                     transform: rotate(360deg);
                 }
             }
-            .p5-star-spin {
+            .p5-shape-spin {
                 animation: spin-slow 50s linear infinite;
             }
         </style>
     </head>
     <body
-        class="p5-bg text-black font-sans min-h-screen flex items-center justify-center p-4 relative overflow-hidden selection:bg-black selection:text-[#e60012]"
+        class="p5-bg text-black font-sans min-h-screen flex items-center justify-center p-4 relative overflow-hidden selection:bg-black selection:text-[#009639]"
     >
         <!-- Background Graphic Elements -->
         <div
             class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,0,0,0.05)_25%,transparent_25%,transparent_50%,rgba(0,0,0,0.05)_50%,rgba(0,0,0,0.05)_75%,transparent_75%,transparent)] bg-[length:100px_100px] pointer-events-none"
         >
         </div>
+
+        <!-- Rotating Crescent Moon Background Shape -->
         <div
-            class="absolute -top-20 -left-20 w-[600px] h-[600px] bg-black opacity-10 p5-star-spin pointer-events-none -z-10"
-            style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);"
+            class="absolute -top-20 -left-20 w-[600px] h-[600px] text-black opacity-10 p5-shape-spin pointer-events-none -z-10"
         >
+            <svg viewBox="0 0 100 100" fill="currentColor" width="100%" height="100%">
+                <path d="M 50,5 A 45,45 0 1,0 95,50 A 37,37 0 1,1 50,5 Z"></path>
+            </svg>
         </div>
 
         <main class="w-full max-w-xl relative z-10 p-4">
@@ -73,15 +77,15 @@ const linkedinUrl = "https://www.linkedin.com/in/ashik-md/";
                     class="relative bg-white text-black text-6xl font-black uppercase tracking-tighter px-6 py-2 border-4 border-black skew-p5-left inline-block shadow-[8px_8px_0px_#000]"
                 >
                     HELLO, I'M <span
-                        class="text-[#e60012] bg-black px-3 py-1 ml-1 inline-block transform rotate-2"
+                        class="text-[#009639] bg-black px-3 py-1 ml-1 inline-block transform rotate-2"
                         >{name}</span
                     >
                 </h1>
 
-                <!-- Cleaned up pronunciation sub-badge -->
+                <!-- Pronunciation sub-badge -->
                 <div class="block mt-4 transform rotate-2">
                     <p
-                        class="inline-block bg-black text-white font-mono text-xs uppercase px-4 py-1.5 font-bold border-2 border-white tracking-widest skew-p5-right shadow-[4px_4px_0px_#e60012]"
+                        class="inline-block bg-black text-white font-mono text-xs uppercase px-4 py-1.5 font-bold border-2 border-white tracking-widest skew-p5-right shadow-[4px_4px_0px_#009639]"
                     >
                         {pronunciation}
                     </p>
@@ -101,18 +105,24 @@ const linkedinUrl = "https://www.linkedin.com/in/ashik-md/";
                             <div
                                 class={`transform ${rotation} ${translation} transition-all duration-200 cursor-pointer group relative`}
                             >
-                                <div class="absolute inset-0 bg-[#e60012] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 group-hover:translate-y-1 transition-all duration-150 border-2 border-black" />
+                                <div class="absolute inset-0 bg-[#009639] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 group-hover:translate-y-1 transition-all duration-150 border-2 border-black" />
                                 <div
                                     class={`relative px-6 py-3 border-4 border-black ${bgClass} font-black text-xl tracking-wider uppercase flex items-center justify-between shadow-[6px_6px_0px_rgba(0,0,0,0.3)]`}
                                 >
                                     <span class="flex items-center gap-3">
-                                        <span class="text-[#e60012] font-mono text-sm">
+                                        <span class="text-[#009639] font-mono text-sm">
                                             // 0{index + 1}
                                         </span>
                                         {skill}
                                     </span>
-                                    <span class="text-xl opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all">
-                                        ★
+                                    <span class="w-6 h-6 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-150 flex items-center justify-center">
+                                        <svg
+                                            viewBox="0 0 100 100"
+                                            fill="currentColor"
+                                            class="w-5 h-5"
+                                        >
+                                            <path d="M 50,5 A 45,45 0 1,0 95,50 A 37,37 0 1,1 50,5 Z" />
+                                        </svg>
                                     </span>
                                 </div>
                             </div>
@@ -127,20 +137,22 @@ const linkedinUrl = "https://www.linkedin.com/in/ashik-md/";
             >
                 <div class="absolute -top-3 left-0 w-full h-2 bg-black transform -rotate-1"></div>
 
+                <!-- GitHub with brand hover color (#24292e) -->
                 <a
                     href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="transform -rotate-6 hover:rotate-0 hover:scale-105 bg-black text-white hover:bg-white hover:text-black border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight shadow-[5px_5px_0px_#fff] hover:shadow-[5px_5px_0px_#000] transition-all duration-150"
+                    class="transform -rotate-6 hover:rotate-0 hover:scale-105 bg-black text-white hover:bg-[#24292e] border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight shadow-[5px_5px_0px_#fff] hover:shadow-[5px_5px_0px_#000] transition-all duration-150"
                 >
                     GitHub
                 </a>
 
+                <!-- LinkedIn with brand hover color (#0077b5) -->
                 <a
                     href={linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="transform rotate-3 hover:rotate-0 hover:scale-105 bg-[#e60012] text-white hover:bg-black border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight shadow-[5px_5px_0px_#000] transition-all duration-150"
+                    class="transform rotate-3 hover:rotate-0 hover:scale-105 bg-white text-black hover:bg-[#0077b5] hover:text-white border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight shadow-[5px_5px_0px_#000] transition-all duration-150"
                 >
                     LinkedIn
                 </a>
