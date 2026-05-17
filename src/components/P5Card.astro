@@ -1,0 +1,38 @@
+---
+interface Props {
+  label: string
+  index: number
+  href?: string
+  secondary?: string
+  hoverColor?: string
+  class?: string
+}
+
+const { label, index, href, secondary, hoverColor = "", class: className = "" } = Astro.props
+const Tag = href ? "a" : "div"
+const isEven = index % 2 === 0
+const bgClass = isEven ? "bg-black text-white" : "bg-white text-black"
+const linkAttrs = href ? { href, target: "_blank", rel: "noopener noreferrer" } : {}
+---
+
+<div class={`animate-p5-enter p5-corners transform transition-all duration-p5 ease-p5 relative group hover:rotate-0 ${className}`} style={`animation-delay: ${index * 60}ms`}>
+  <div class="absolute inset-0 bg-[#009639] translate-x-1 translate-y-1 border-2 border-black" />
+  <Tag
+    class={`relative block border-4 border-black p-3.5 flex items-center justify-between shadow-[4px_4px_0px_rgba(0,0,0,0.25)] transition-colors duration-p5 ease-p5 ${bgClass} ${hoverColor}`}
+    {...linkAttrs}
+  >
+    <div class="flex flex-col items-start select-none">
+      <span class="font-mono text-[9px] sm:text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+        // {index + 1}
+      </span>
+      <span class="font-sans text-base sm:text-lg font-black uppercase tracking-tight">
+        {label}
+      </span>
+    </div>
+    {secondary && (
+      <div class="font-mono text-xs font-bold opacity-80 group-hover:opacity-100 transition-opacity duration-p5 ease-p5">
+        {secondary}
+      </div>
+    )}
+  </Tag>
+</div>

@@ -1,46 +1,53 @@
-# Astro Starter Kit: Basics
+# ASHIK // PORTFOLIO
+
+A responsive, minimalist developer log and portfolio built with Astro and Bun.
+
+---
+
+## Quick Start
+
+Manage the project from the terminal root using these commands:
 
 ```sh
-bun create astro@latest -- --template basics
+bun install    # Install dependencies
+bun dev        # Start local dev server at localhost:4321
+bun build      # Compile production build to ./dist/
+bun sync       # Refresh Astro Content Collection cache
+
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## Adding a Blog Post
 
-Inside of your Astro project, you'll see the following folders and files:
+The blog feed utilizes Astro content collections. To add a new post, drop a markdown file into the content directory.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+### 1. Create the File
+
+Create a new markdown file using a clean slug for the filename:
+`src/content/blog/your-post-slug.md`
+
+### 2. Add the Frontmatter Header
+
+Every post requires this exact metadata structure at the top of the file:
+
+```markdown
+---
+title: "Your Post Title Here"
+description: "A brief summary for the feed card view."
+date: "2026.05.17"
+tags: ["Linux", "WebDev"]
+tagLabel: "SYSTEM LOG"
+---
+
+Your markdown content goes here.
+
+## Section Heading
+
+- Bullet points format automatically.
+- Inline code formats cleanly.
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### 3. Verification
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Save the file. If the development server (`bun dev`) is running, the page will dynamically generate and update the feed at `

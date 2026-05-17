@@ -1,0 +1,64 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import P5Card from "../components/P5Card.astro";
+
+// Direct Communication Route Mappings
+const networks = [
+    {
+        label: "DISCORD",
+        val: "username",
+        href: "https://discord.com/users/your-username",
+        hoverColor: "hover:bg-[#5865F2] hover:text-white",
+    },
+    // { label: "WHATSAPP", val: "username", href: "https://wa.me/your-number-here", hoverColor: "hover:bg-[#25D366] hover:text-white" },
+    {
+        label: "TWITTER_X",
+        val: "username",
+        href: "https://x.com/your-username",
+        hoverColor: "hover:bg-[#1DA1F2] hover:text-white",
+    },
+    {
+        label: "INSTAGRAM",
+        val: "username",
+        href: "https://instagram.com/your-username",
+        hoverColor: "hover:bg-[#E1306C] hover:text-white",
+    },
+    // { label: "FACEBOOK", val: "username", href: "https://facebook.com/your-username", hoverColor: "hover:bg-[#1877F2] hover:text-white" },
+    // { label: "TIKTOK", val: "username", href: "https://tiktok.com/@your-username", hoverColor: "hover:bg-[#000000] hover:text-white" }
+];
+---
+
+<MainLayout title="Contact" centered>
+    <Navigation slot="nav" />
+
+    <header class="mb-10 transform -rotate-1 select-none">
+        <h1
+            class="bg-white text-black border-4 border-black text-3xl sm:text-4xl font-black uppercase tracking-tighter px-4 py-2 inline-block skew-p5-right shadow-[5px_5px_0px_#000]"
+        >
+            CONTACT
+        </h1>
+    </header>
+
+    <!-- Interactive Network Hub Link Matrix Wrapper -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-xl mx-auto">
+        {
+            networks
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .map((net, index) => {
+                    const rotation = index % 2 === 0 ? "rotate-1" : "-rotate-1";
+
+                    return (
+                        <P5Card
+                            label={net.label}
+                            index={index}
+                            href={net.href}
+                            secondary={net.val}
+                            hoverColor={net.hoverColor}
+                            class={rotation}
+                        />
+                    );
+                })
+        }
+    </div>
+</MainLayout>

@@ -1,0 +1,47 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import P5Button from "../components/P5Button.astro";
+
+const works = [
+  { title: "fedora-postsetup", desc: "A repo focused on setting up a fresh Fedora Workstation installation.", tag: "Linux", link: "https://github.com/ashik-maybe/fedora-postsetup" },
+];
+---
+
+<MainLayout title="Projects" layoutSize="wide">
+  <Navigation slot="nav" />
+
+  <header class="mb-10 transform -rotate-1 select-none">
+    <h1 class="bg-white text-black border-4 border-black text-3xl sm:text-4xl font-black uppercase tracking-tighter px-4 py-2 inline-block skew-p5-right shadow-[5px_5px_0px_#000]">
+      PROJECTS
+    </h1>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+    {works.map((work, idx) => {
+      const isEven = idx % 2 === 0;
+      const rotation = isEven ? "-rotate-1" : "rotate-1";
+
+      return (
+        <div class={`animate-p5-enter p5-corners relative bg-white text-black border-4 border-black p-5 sm:p-6 shadow-[6px_6px_0px_#000] transform ${rotation} group hover:rotate-0 transition-transform duration-p5 ease-p5`} style={`animation-delay: ${idx * 60}ms`}>
+
+          <!-- Optimized Badge Frame -->
+          <div class="absolute -top-3 right-3 bg-black text-white border-2 border-black font-mono font-black text-[9px] uppercase tracking-wider px-2 py-0.5 transform rotate-2">
+            {work.tag}
+          </div>
+
+          <h2 class="text-xl sm:text-2xl font-black uppercase mb-2 font-mono tracking-tight text-black group-hover:text-[#009639] transition-colors duration-p5 ease-p5 pt-2">
+            // {work.title}
+          </h2>
+          <p class="font-medium text-xs sm:text-sm text-zinc-800 mb-6 leading-relaxed">
+            {work.desc}
+          </p>
+
+          <P5Button href={work.link} target="_blank" rel="noopener noreferrer" variant="black" class="text-xs px-4 py-1.5">
+            VIEW
+          </P5Button>
+        </div>
+      );
+    })}
+  </div>
+</MainLayout>

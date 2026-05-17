@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import Navigation from "../../components/Navigation.astro";
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("blog");
+    return blogEntries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const base = import.meta.env.BASE_URL;
+---
+
+<MainLayout title={`BLOG // ${entry.data.title}`} layoutSize="editorial" noScanlines>
+    <Navigation slot="nav" />
+
+    <div class="mb-6 select-none w-full">
+        <a
+            href={`${base}blog`}
+            class="inline-block bg-black text-white font-mono font-black text-[11px] sm:text-xs uppercase px-4 py-2 border-2 border-black tracking-wider shadow-[3px_3px_0px_#fff] hover:bg-white hover:text-black transition-all duration-p5 ease-p5"
+        >
+            ← BACK
+        </a>
+    </div>
+
+    <article
+        class="animate-p5-enter p5-corners bg-white text-black border-4 border-black p-5 sm:p-10 md:p-12 shadow-[6px_6px_0px_#000] sm:shadow-[8px_8px_0px_#000] w-full"
+    >
+        <header class="border-b-4 border-black pb-4 mb-6">
+            <div
+                class="font-mono text-[11px] sm:text-xs font-black text-[#009639] mb-1 tracking-widest"
+            >
+                // {entry.data.tagLabel}
+            </div>
+            <!-- Fluid Headings: Shrinks safely on mobile screens so it never overflows -->
+            <h1
+                class="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight leading-tight text-black"
+            >
+                {entry.data.title}
+            </h1>
+            <div
+                class="font-mono text-[9px] sm:text-[10px] font-bold text-zinc-500 mt-2 uppercase tracking-wider"
+            >
+                PUBLISHED // {entry.data.date}
+            </div>
+        </header>
+
+        <!-- TYPOGRAPHY FLUID GRID ENGINE
+             - max-w-prose: CRITICAL UX. Caps the text width to ~65 characters per line so your eyes don't get tired reading on desktop.
+             - text-sm sm:text-base: Perfect scaling for readability.
+        -->
+        <div
+            class="prose max-w-prose text-sm sm:text-base text-zinc-900 leading-relaxed space-y-5 font-medium
+                prose-headings:font-black prose-headings:uppercase prose-headings:text-black prose-headings:font-mono prose-headings:mt-6
+                prose-strong:font-black prose-strong:text-black
+                prose-blockquote:font-bold prose-blockquote:text-black prose-blockquote:border-l-4 prose-blockquote:border-[#009639] prose-blockquote:pl-3 prose-blockquote:bg-zinc-50 prose-blockquote:py-2 prose-blockquote:italic
+                prose-code:bg-black prose-code:text-white prose-code:px-1.5 prose-code:py-0.5 prose-code:text-xs prose-code:font-mono
+                prose-pre:bg-black prose-pre:text-white prose-pre:p-4 prose-pre:border-2 prose-pre:border-black prose-pre:shadow-[4px_4px_0px_#009639] prose-pre:font-mono prose-pre:text-xs prose-pre:overflow-x-auto"
+        >
+            <Content />
+        </div>
+
+        <footer class="mt-8 pt-4 border-t border-zinc-200">
+            <div
+                class="text-[10px] sm:text-xs font-mono font-black text-zinc-400 uppercase tracking-widest"
+            >
+                // END
+            </div>
+        </footer>
+    </article>
+</MainLayout>

@@ -1,0 +1,42 @@
+---
+const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL; // Correctly evaluates to "/portfolio/"
+
+const tabs = [
+    { name: "Home", href: `${base}` },
+    { name: "About", href: `${base}about` },
+    { name: "Contact", href: `${base}contact` },
+    { name: "Projects", href: `${base}projects` },
+    { name: "Blog", href: `${base}blog` },
+];
+---
+
+<nav class="flex flex-wrap gap-4 mb-12 select-none justify-center items-center">
+    {
+        tabs.map((tab, idx) => {
+            const isActive =
+                tab.href === `${base}`
+                    ? currentPath === tab.href || currentPath === `${base}/`
+                    : currentPath.startsWith(tab.href);
+
+            const skewClass = idx % 2 === 0 ? "skew-p5-left" : "skew-p5-right";
+
+            // Alternating rotations to keep that jagged, dynamic grid layout feel
+            const rotateClass = idx % 2 === 0 ? "-rotate-3" : "rotate-2";
+
+            return (
+                <a
+                    href={tab.href}
+                    class={`transform ${rotateClass} ${skewClass} transition-all duration-p5 ease-p5 font-black text-xs sm:text-sm uppercase px-4 py-2 border-4 border-black tracking-tighter shadow-[4px_4px_0px_#000] hover:scale-110 active:translate-y-1
+          ${
+              isActive
+                  ? "bg-black text-white shadow-[4px_4px_0px_#fff]"
+                  : "bg-white text-black hover:bg-black hover:text-[#009639]"
+          }`}
+                >
+                    {tab.name}
+                </a>
+            );
+        })
+    }
+</nav>

@@ -1,0 +1,70 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<MainLayout title="404 // NOT FOUND" centered>
+    <!--
+    THE FIX:
+    - min-h-[60vh]: Prevents vertical page bloating.
+    - overflow-hidden: Aggressively cuts off the w-[150%] background slats so they NEVER cause a scrollbar.
+    - max-w-md mx-auto: Keeps the layout tightly boxed on large monitors.
+  -->
+    <div
+        class="animate-p5-enter p5-corners w-full max-w-md mx-auto bg-white text-black border-4 border-black p-6 sm:p-10 shadow-[8px_8px_0px_#000] text-center relative overflow-hidden select-none"
+    >
+        <!-- BACKGROUND SLIT ACCENTS (Safely contained inside overflow-hidden) -->
+        <div
+            class="absolute w-[150%] h-16 bg-black transform -rotate-12 top-6 -left-1/4 pointer-events-none opacity-5"
+        >
+        </div>
+        <div
+            class="absolute w-[150%] h-24 bg-black transform rotate-6 bottom-12 -left-1/4 pointer-events-none opacity-5"
+        >
+        </div>
+
+        <!-- HIGH-CONTRAST MAGAZINE CUTOUT TITLE -->
+        <div
+            class="flex items-center justify-center -space-x-1 sm:-space-x-2 mb-8 mt-4 transform -rotate-2"
+        >
+            <div
+                class="bg-black text-white text-6xl sm:text-8xl font-black px-4 py-2 border-4 border-black shadow-[5px_5px_0px_#009639]"
+            >
+                4
+            </div>
+            <div
+                class="bg-white text-black text-7xl sm:text-9xl font-black px-5 py-0 border-4 border-black shadow-[-5px_5px_0px_#000] z-10 -translate-y-3"
+            >
+                0
+            </div>
+            <div
+                class="bg-black text-white text-6xl sm:text-8xl font-black px-4 py-2 border-4 border-black shadow-[5px_5px_0px_#fff]"
+            >
+                4
+            </div>
+        </div>
+
+        <!-- Metadata Readout -->
+        <div class="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-4">
+            // NOT_FOUND
+        </div>
+
+        <!-- Description Block -->
+        <p
+            class="text-zinc-800 text-xs sm:text-sm font-medium max-w-xs mx-auto mb-8 leading-relaxed"
+        >
+            The page you're looking for doesn't exist.
+        </p>
+
+        <!-- Clean Back Button -->
+        <div class="w-full">
+            <a
+                href={`${base}`}
+                class="inline-block w-full bg-black text-white text-xs font-black uppercase py-3 border-2 border-black tracking-tighter shadow-[4px_4px_0px_#009639] hover:bg-white hover:text-black hover:shadow-[4px_4px_0px_#000] transition-all duration-p5 ease-p5"
+            >
+                GO_HOME
+            </a>
+        </div>
+    </div>
+</MainLayout>

@@ -1,0 +1,26 @@
+---
+interface Props {
+    href?: string;
+    target?: string;
+    rel?: string;
+    variant?: "black" | "white";
+    class?: string; // Captures additional layout or color classes
+}
+
+const { href, target, rel, variant = "black", class: className = "" } = Astro.props;
+
+const Tag = href ? "a" : "button";
+
+const baseStyles =
+    "inline-block transform -rotate-3 hover:rotate-0 hover:scale-105 border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight transition-all duration-p5 ease-p5 cursor-pointer select-none";
+
+// Use standard styles but allow the `className` prop to override hover colors
+const variantStyles =
+    variant === "black"
+        ? "bg-black text-white shadow-[5px_5px_0px_#fff] hover:shadow-[5px_5px_0px_#000]"
+        : "bg-white text-black shadow-[5px_5px_0px_#000]";
+---
+
+<Tag href={href} target={target} rel={rel} class={`${baseStyles} ${variantStyles} ${className}`}>
+    <slot />
+</Tag>

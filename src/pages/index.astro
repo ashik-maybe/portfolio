@@ -1,5 +1,9 @@
 ---
-import "../styles/global.css";
+import MainLayout from "../layouts/MainLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import P5Button from "../components/P5Button.astro";
+import P5Card from "../components/P5Card.astro";
+
 const name = "ASHIK";
 const pronunciation = "ah-SHEEK /ɑːʃiːk/";
 const interests = ["Linux", "Git", "Python", "TypeScript"];
@@ -7,156 +11,69 @@ const githubUrl = "https://github.com/ashik-maybe/";
 const linkedinUrl = "https://www.linkedin.com/in/ashik-md/";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{name} // Profile</title>
-        <style is:global>
-            /* Halftone Dot Background Pattern with Green */
-            .p5-bg {
-                background-color: #009639;
-                background-image:
-                    radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%),
-                    radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%);
-                background-size: 16px 16px;
-                background-position:
-                    0 0,
-                    8px 8px;
-            }
+<MainLayout title={`${name}`} centered>
+    <Navigation slot="nav" />
 
-            .skew-p5-left {
-                transform: skewX(-12deg);
-            }
-            .skew-p5-right {
-                transform: skewX(8deg);
-            }
-
-            @keyframes spin-slow {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-            .p5-shape-spin {
-                animation: spin-slow 50s linear infinite;
-            }
-        </style>
-    </head>
-    <body
-        class="p5-bg text-black font-sans min-h-screen flex items-center justify-center p-4 relative overflow-hidden selection:bg-black selection:text-[#009639]"
-    >
-        <!-- Background Graphic Elements -->
+    <!-- FIXED HEADER LAYER OVERLAPS -->
+    <header class="relative mb-14 transform -rotate-2 select-none inline-block">
         <div
-            class="absolute inset-0 bg-[linear-gradient(45deg,rgba(0,0,0,0.05)_25%,transparent_25%,transparent_50%,rgba(0,0,0,0.05)_50%,rgba(0,0,0,0.05)_75%,transparent_75%,transparent)] bg-[length:100px_100px] pointer-events-none"
+            class="absolute top-1.5 left-1.5 bg-black text-transparent text-4xl sm:text-6xl font-black uppercase tracking-tighter px-4 sm:px-6 py-2 skew-p5-left whitespace-nowrap"
         >
+            HELLO, I'M {name}
         </div>
-
-        <!-- Rotating Crescent Moon Background Shape -->
-        <div
-            class="absolute -top-20 -left-20 w-[600px] h-[600px] text-black opacity-10 p5-shape-spin pointer-events-none -z-10"
+        <h1
+            class="relative bg-white text-black text-4xl sm:text-6xl font-black uppercase tracking-tighter px-4 sm:px-6 py-2 border-4 border-black skew-p5-left inline-block shadow-[6px_6px_0px_#000] whitespace-nowrap"
         >
-            <svg viewBox="0 0 100 100" fill="currentColor" width="100%" height="100%">
-                <path d="M 50,5 A 45,45 0 1,0 95,50 A 37,37 0 1,1 50,5 Z"></path>
-            </svg>
-        </div>
-
-        <main class="w-full max-w-xl relative z-10 p-4">
-            <!-- HEADER SECTION -->
-            <header class="relative mb-12 transform -rotate-3 select-none">
-                <div
-                    class="absolute top-2 left-2 bg-black text-transparent text-6xl font-black uppercase tracking-tighter px-6 py-2 skew-p5-left"
-                >
-                    {name}
-                </div>
-                <h1
-                    class="relative bg-white text-black text-6xl font-black uppercase tracking-tighter px-6 py-2 border-4 border-black skew-p5-left inline-block shadow-[8px_8px_0px_#000]"
-                >
-                    HELLO, I'M <span
-                        class="text-[#009639] bg-black px-3 py-1 ml-1 inline-block transform rotate-2"
-                        >{name}</span
-                    >
-                </h1>
-
-                <!-- Pronunciation sub-badge -->
-                <div class="block mt-4 transform rotate-2">
-                    <p
-                        class="inline-block bg-black text-white font-mono text-xs uppercase px-4 py-1.5 font-bold border-2 border-white tracking-widest skew-p5-right shadow-[4px_4px_0px_#009639]"
-                    >
-                        {pronunciation}
-                    </p>
-                </div>
-            </header>
-
-            <!-- SKILLS / INTERESTS SECTION -->
-            <section class="mb-14 space-y-4 max-w-sm pl-4">
-                {
-                    interests.map((skill, index) => {
-                        const isEven = index % 2 === 0;
-                        const rotation = isEven ? "-rotate-2" : "rotate-3";
-                        const translation = isEven ? "hover:translate-x-6" : "hover:translate-x-4";
-                        const bgClass = isEven ? "bg-black text-white" : "bg-white text-black";
-
-                        return (
-                            <div
-                                class={`transform ${rotation} ${translation} transition-all duration-200 cursor-pointer group relative`}
-                            >
-                                <div class="absolute inset-0 bg-[#009639] opacity-0 group-hover:opacity-100 group-hover:translate-x-2 group-hover:translate-y-1 transition-all duration-150 border-2 border-black" />
-                                <div
-                                    class={`relative px-6 py-3 border-4 border-black ${bgClass} font-black text-xl tracking-wider uppercase flex items-center justify-between shadow-[6px_6px_0px_rgba(0,0,0,0.3)]`}
-                                >
-                                    <span class="flex items-center gap-3">
-                                        <span class="text-[#009639] font-mono text-sm">
-                                            // 0{index + 1}
-                                        </span>
-                                        {skill}
-                                    </span>
-                                    <span class="w-6 h-6 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-150 flex items-center justify-center">
-                                        <svg
-                                            viewBox="0 0 100 100"
-                                            fill="currentColor"
-                                            class="w-5 h-5"
-                                        >
-                                            <path d="M 50,5 A 45,45 0 1,0 95,50 A 37,37 0 1,1 50,5 Z" />
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        );
-                    })
-                }
-            </section>
-
-            <!-- FOOTER LINKS -->
-            <footer
-                class="flex flex-wrap gap-6 justify-start items-center pt-6 border-t-4 border-black relative"
+            HELLO, I'M <span
+                class="text-[#009639] bg-black px-2 sm:px-3 py-0.5 ml-1 inline-block transform rotate-2"
+                >{name}</span
             >
-                <div class="absolute -top-3 left-0 w-full h-2 bg-black transform -rotate-1"></div>
+        </h1>
 
-                <!-- GitHub with brand hover color (#24292e) -->
-                <a
-                    href={githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="transform -rotate-6 hover:rotate-0 hover:scale-105 bg-black text-white hover:bg-[#24292e] border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight shadow-[5px_5px_0px_#fff] hover:shadow-[5px_5px_0px_#000] transition-all duration-150"
-                >
-                    GitHub
-                </a>
+        <div class="block mt-4 transform rotate-1">
+            <p
+                class="inline-block bg-black text-white font-mono text-[10px] sm:text-xs uppercase px-3 py-1 font-bold border-2 border-white tracking-widest skew-p5-right shadow-[4px_4px_0px_#009639]"
+            >
+                {pronunciation}
+            </p>
+        </div>
+    </header>
 
-                <!-- LinkedIn with brand hover color (#0077b5) -->
-                <a
-                    href={linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="transform rotate-3 hover:rotate-0 hover:scale-105 bg-white text-black hover:bg-[#0077b5] hover:text-white border-4 border-black font-black text-base uppercase px-6 py-2.5 tracking-tight shadow-[5px_5px_0px_#000] transition-all duration-150"
-                >
-                    LinkedIn
-                </a>
-            </footer>
-        </main>
-    </body>
-</html>
+    <!-- INTERESTS GRID FLUID CONTAINER -->
+    <section class="grid grid-cols-2 gap-4 w-full max-w-sm mx-auto mb-8">
+        {
+            interests.map((skill, index) => {
+                const rotation = index % 2 === 0 ? "-rotate-1" : "rotate-2";
+                return <P5Card label={skill} index={index} class={rotation} />;
+            })
+        }
+    </section>
+
+    <!-- FOOTER WITH BRAND LINKS -->
+    <footer
+        class="flex flex-wrap gap-4 justify-start items-center pt-10 border-t-4 border-black relative"
+    >
+        <div class="absolute -top-3 left-0 w-full h-1 bg-black transform -rotate-1"></div>
+        <div class="absolute -top-3 left-0 w-full h-1 bg-black transform rotate-1"></div>
+
+        <P5Button
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="black"
+            class="hover:bg-[#24292e]"
+        >
+            GitHub
+        </P5Button>
+
+        <P5Button
+            href={linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="white"
+            class="hover:bg-[#0077b5] hover:text-white"
+        >
+            LinkedIn
+        </P5Button>
+    </footer>
+</MainLayout>

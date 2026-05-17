@@ -1,0 +1,59 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Navigation from "../components/Navigation.astro";
+
+const setup = [
+    { key: "OS", value: "Fedora" },
+    { key: "DE", value: "GNOME" },
+    { key: "Editor", value: "VS Code / Zed" },
+    { key: "Shell", value: "fish" },
+];
+---
+
+<MainLayout title="About" centered>
+    <Navigation slot="nav" />
+
+    <header class="mb-10 transform -rotate-1 select-none">
+        <h1 class="bg-white text-black border-4 border-black text-3xl sm:text-4xl font-black uppercase tracking-tighter px-4 py-2 inline-block skew-p5-right shadow-[5px_5px_0px_#000]">
+            PROFILE
+        </h1>
+    </header>
+
+    <section class="space-y-6">
+        <!-- Bio Block -->
+        <div
+            class="animate-p5-enter p5-corners bg-white border-4 border-black p-6 shadow-[8px_8px_0px_#000] transform -rotate-1 group hover:rotate-0 transition-transform duration-p5 ease-p5 relative overflow-hidden"
+        >
+            <div
+                class="absolute -bottom-6 -right-6 text-9xl font-black text-gray-100 uppercase pointer-events-none select-none tracking-tighter z-0"
+            >
+                BIO
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-xl font-black uppercase mb-3 font-mono text-[#009639]">
+                    // BACKGROUND
+                </h2>
+                <p class="font-medium text-sm leading-relaxed text-black">Undergrad student.</p>
+            </div>
+        </div>
+
+        <!-- Specs/Setup Block -->
+        <div
+            class="animate-p5-enter p5-corners bg-black text-white border-4 border-black p-6 shadow-[8px_8px_0px_#fff] transform rotate-1 group hover:rotate-0 transition-transform duration-p5 ease-p5" style="animation-delay: 60ms"
+        >
+            <h2 class="text-xl font-black uppercase mb-4 font-mono text-[#009639]">// SETUP</h2>
+            <ul class="space-y-2 font-mono text-xs">
+                {
+                    setup.map((item) => (
+                        <li class="flex items-center justify-between border-b border-zinc-800 pb-1">
+                            <span class="text-gray-400 uppercase tracking-wider">{item.key}:</span>
+                            <span class="font-bold text-white bg-zinc-900 px-2 py-0.5 transform -rotate-1 inline-block">
+                                {item.value}
+                            </span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </section>
+</MainLayout>
